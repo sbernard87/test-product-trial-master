@@ -1,0 +1,129 @@
+openapi: 3.0.3
+info:
+  title: Product API
+  version: 1.0.0
+paths:
+  /products:
+    post:
+      summary: Create a new product
+      operationId: createProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDTO'
+      responses:
+        '201':
+          description: Product created
+    get:
+      summary: Get all products with pagination
+      operationId: findAllProducts
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Page number
+        - in: query
+          name: size
+          schema:
+            type: integer
+          description: Number of items per page
+      responses:
+        '200':
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductSummaryDTO'
+  /products/{id}:
+    get:
+      summary: Get product details
+      operationId: findProductDetails
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
+    patch:
+      summary: Update product details
+      operationId: updateProductDetails
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDTO'
+      responses:
+        '200':
+          description: Product updated
+    delete:
+      summary: Delete a product
+      operationId: deleteProduct
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Product deleted
+components:
+  schemas:
+    ProductDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        code:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+        category:
+          type: string
+        price:
+          type: number
+        quantity:
+          type: integer
+        internalReference:
+          type: string
+        shellId:
+          type: integer
+        inventoryStatus:
+          type: string
+          enum: [INSTOCK, LOWSTOCK, OUTOFSTOCK]
+        rating:
+          type: number
+        createdAt:
+          type: integer
+        updatedAt:
+          type: integer
+    ProductSummaryDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        category:
+          type: string
