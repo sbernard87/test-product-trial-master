@@ -26,19 +26,6 @@ public class UserController implements AccountApi, TokenApi {
 
     private TokenService tokenService;
 
-//    @Autowired
-//    @GetMapping
-//    public ResponseEntity<List<UserDTO>> getAllUsers(
-//            @RequestParam(value = "page", required = false, defaultValue = "0") final Integer page,
-//            @RequestParam(value = "size", required = false, defaultValue = "10") final Integer size) {
-//        return ResponseEntity.ok(userService.getAllUsers(page, size));
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<UserDTO> getUserById(@PathVariable final Integer id) {
-//        return ResponseEntity.ok(userService.getUserById(id));
-//    }
-
     @Override
     @Operation(operationId = "createUserAccount", summary = "Create a new user account", responses = {
             @ApiResponse(responseCode = "201", description = "User account created") })
@@ -55,19 +42,8 @@ public class UserController implements AccountApi, TokenApi {
     @PostMapping(value = "/token", consumes = { "application/json" })
     public ResponseEntity<Void> connectUser(
             @Parameter(name = "UserLoginDTO", description = "", required = true) @Valid @RequestBody final UserLoginDTO userLoginDTO) {
+        // generate token
         return ResponseEntity.status(200).build();
 
     }
-
-//    @PatchMapping("/{id}")
-//    public ResponseEntity<Void> updateUser(@PathVariable final Integer id, @RequestBody final UserDTO userDTO) {
-//        userService.updateUser(id, userDTO);
-//        return ResponseEntity.ok().build();
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deleteUser(@PathVariable final Integer id) {
-//        userService.deleteUser(id);
-//        return ResponseEntity.noContent().build();
-//    }
 }
